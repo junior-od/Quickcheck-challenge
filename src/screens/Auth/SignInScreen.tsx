@@ -3,17 +3,25 @@ import {SafeAreaView, View, FlatList, StyleSheet} from 'react-native';
 import CustomStatusBar from '../../components/CustomStatusBar';
 import {padMarginSizes} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
-import SignupForm from '../../components/SignupForm';
 import DismissKeyoard from '../../components/DismissKeyboard';
 import AppHeader from '../../components/AppHeader';
+import SigninForm from '../../components/SigninForm';
+import {useDispatch} from 'react-redux';
+import {setUserSession} from '../../redux/actions/userActions';
 
-type SignupScreenProps = {
+type SigninScreenProps = {
   navigation: any;
 };
 
-const SignupScreen = ({navigation}: SignupScreenProps) => {
+const SigninScreen = ({navigation}: SigninScreenProps) => {
+  const dispatch = useDispatch();
+
   const backArrowClicked = () => {
     navigation.goBack();
+  };
+
+  const proceed = () => {
+    dispatch(setUserSession(true));
   };
 
   return (
@@ -29,7 +37,7 @@ const SignupScreen = ({navigation}: SignupScreenProps) => {
           <FlatList
             data={[]}
             renderItem={() => null}
-            ListEmptyComponent={<SignupForm />}
+            ListEmptyComponent={<SigninForm proceed={proceed} />}
           />
         </View>
       </SafeAreaView>
@@ -50,4 +58,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignupScreen;
+export default SigninScreen;

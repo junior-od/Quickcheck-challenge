@@ -13,9 +13,8 @@ type OnboardingScreenProps = {
 };
 
 const OnboardingScreen = ({navigation}: OnboardingScreenProps) => {
-
   const onSignInClicked = () => {
-
+    navigation.navigate(navigationConstants.signIn);
   };
 
   const onSignUpClicked = () => {

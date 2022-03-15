@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {navigationConstants} from '../utils/navigationConstants';
 import OnboardingScreen from '../screens/Auth/OnboardingScreen';
 import SignupScreen from '../screens/Auth/SignupScreen';
+import SigninScreen from '../screens/Auth/SignInScreen';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -20,6 +21,10 @@ const AuthNavigator = ({navigation}: AuthNavigatorProps) => {
       <AuthStack.Screen
         name={navigationConstants.signUp}
         component={SignupScreen}
+      />
+      <AuthStack.Screen
+        name={navigationConstants.signIn}
+        component={SigninScreen}
       />
     </AuthStack.Navigator>
   );

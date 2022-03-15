@@ -15,28 +15,18 @@ import CustomTextInput from './CustomTextInput';
 import CustomButton from './CustomButton';
 
 const {width} = Dimensions.get('screen');
-const signUpButtonWidth = width / 1.2;
+const signinButtonWidth = width / 1.2;
 
-type SignupProps = {
+type SigninProps = {
   containerStyle?: StyleProp<ViewStyle>;
   proceed?: any;
 };
 
-const SignupForm = ({containerStyle, proceed}: SignupProps) => {
+const SigninForm = ({containerStyle, proceed}: SigninProps) => {
   let stepAnimatedValue = new Animated.Value(0);
 
-  const [firstNameState, setFirstNameState] = useState<string>('');
-  const [lastNameState, setLastNameState] = useState<string>('');
   const [userNameState, setUserNameState] = useState<string>('');
   const [passwordState, setPasswordState] = useState<string>('');
-
-  const onFirstNameChanged = (text: any) => {
-    setFirstNameState(text);
-  };
-
-  const onLastNameChanged = (text: any) => {
-    setLastNameState(text);
-  };
 
   const onUserNameChanged = (text: any) => {
     setUserNameState(text);
@@ -61,27 +51,13 @@ const SignupForm = ({containerStyle, proceed}: SignupProps) => {
 
   return (
     <View style={[styles.container, containerStyle]}>
-      <Text style={styles.signupText}>Sign Up</Text>
+      <Text style={styles.signupText}>Sign In</Text>
       <Animated.View style={[{}, {transform: [{scale: stepAnimatedValue}]}]}>
-        <CustomTextInput
-          placeholder={'First Name'}
-          hasInputValue={true}
-          inputValue={firstNameState}
-          nameFieldStyle={{marginTop: padMarginSizes.xl}}
-          onTextChanged={onFirstNameChanged}
-        />
-        <CustomTextInput
-          placeholder={'Last Name'}
-          hasInputValue={true}
-          inputValue={lastNameState}
-          nameFieldStyle={{marginTop: padMarginSizes.xl}}
-          onTextChanged={onLastNameChanged}
-        />
         <CustomTextInput
           placeholder={'User Name'}
           hasInputValue={true}
           inputValue={userNameState}
-          nameFieldStyle={{marginTop: padMarginSizes.xl}}
+          nameFieldStyle={{marginTop: padMarginSizes.xxxxl}}
           onTextChanged={onUserNameChanged}
         />
         <CustomTextInput
@@ -95,12 +71,12 @@ const SignupForm = ({containerStyle, proceed}: SignupProps) => {
         <CustomButton
           onButtonClicked={proceed}
           buttonStyle={{
-            width: signUpButtonWidth,
+            width: signinButtonWidth,
             backgroundColor: colors.blue,
             marginTop: padMarginSizes.xxxxl,
             borderRadius: borderSizes.lg,
           }}
-          buttonTitle={'Sign Up'}
+          buttonTitle={'Sign In'}
           buttonTitleStyle={{color: colors.white}}
         />
       </Animated.View>
@@ -118,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignupForm;
+export default SigninForm;
