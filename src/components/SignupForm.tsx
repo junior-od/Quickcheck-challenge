@@ -59,6 +59,10 @@ const SignupForm = ({containerStyle, proceed}: SignupProps) => {
     }).start();
   };
 
+  const okay = () => {
+    proceed(firstNameState, lastNameState, userNameState, passwordState);
+  };
+
   return (
     <View style={[styles.container, containerStyle]}>
       <Text style={styles.signupText}>Sign Up</Text>
@@ -93,7 +97,7 @@ const SignupForm = ({containerStyle, proceed}: SignupProps) => {
         />
 
         <CustomButton
-          onButtonClicked={proceed}
+          onButtonClicked={okay}
           buttonStyle={{
             width: signUpButtonWidth,
             backgroundColor: colors.blue,

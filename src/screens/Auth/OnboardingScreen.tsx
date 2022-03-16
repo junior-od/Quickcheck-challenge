@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
 import {colors} from '../../utils/colors';
 import {fontSizes, padMarginSizes} from '../../utils/sizes';
@@ -7,12 +7,34 @@ import CustomStatusBar from '../../components/CustomStatusBar';
 import Logo from '../../components/Logo';
 import GetStarted from '../../components/GetStarted';
 import {navigationConstants} from '../../utils/navigationConstants';
+import SQLite from 'react-native-sqlite-storage';
 
 type OnboardingScreenProps = {
   navigation: any;
 };
 
 const OnboardingScreen = ({navigation}: OnboardingScreenProps) => {
+  const db = SQLite.openDatabase(
+    {
+      name: 'MyDB',
+      location: 'default',
+    },
+    () => {},
+    error => {
+      console.log(error);
+    },
+  );
+
+  const createUserTable = () => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'CREATE TABLE IF NOT EXISTS ' +
+          'Users' +
+          '(ID INTEGER PRIMARY KEY AUTOINCREMENT, FirstName TEXT, LastName TEXT, UserName TEXT, Password TEXT);',
+      );
+    });
+  };
+
   const onSignInClicked = () => {
     navigation.navigate(navigationConstants.signIn);
   };
@@ -20,6 +42,10 @@ const OnboardingScreen = ({navigation}: OnboardingScreenProps) => {
   const onSignUpClicked = () => {
     navigation.navigate(navigationConstants.signUp);
   };
+
+  useEffect(() => {
+    createUserTable();
+  }, []);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
