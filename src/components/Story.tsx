@@ -47,7 +47,7 @@ const SingleStoryItem = ({item, onItemClicked}: SingleStoryItemProps) => {
           aSize={50}
           loading={!story}>
           <View style={styles.innerContainer}>
-            <Text>{story ? story.title : ''}</Text>
+            <Text style={styles.textStyle}>{story ? story.title : ''}</Text>
           </View>
         </ContentLoader>
       </TouchableOpacity>
@@ -71,6 +71,10 @@ const styles = StyleSheet.create({
   contentLoaderStyle: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  textStyle: {
+    color: colors.black,
   },
 });
 

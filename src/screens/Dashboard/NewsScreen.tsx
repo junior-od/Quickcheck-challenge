@@ -15,7 +15,7 @@ const NewsScreen = ({navigation}: NewsScreenProps) => {
   const storyIds = useRef<any>([]);
   const [capturedIds, setCapturedIds] = useState<any>([]);
   const page = useRef<number>(1);
-  const pageSize = 5;
+  const pageSize = 10;
 
   const paginate = (array: any, size: number, pageNumber: number) => {
     return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
@@ -28,12 +28,11 @@ const NewsScreen = ({navigation}: NewsScreenProps) => {
   const loadMore = () => {
     setTimeout(() => {
       if (page.current <= getTotalPages(storyIds.current, pageSize)) {
-        page.current = page.current + 1;
-
         setCapturedIds([
           ...capturedIds,
-          ...paginate(storyIds.current, pageSize, page.current - 1),
+          ...paginate(storyIds.current, pageSize, page.current),
         ]);
+        page.current = page.current + 1;
       }
     }, 1000);
   };
@@ -75,7 +74,7 @@ const NewsScreen = ({navigation}: NewsScreenProps) => {
           initialNumToRender={5}
           updateCellsBatchingPeriod={5}
           maxToRenderPerBatch={5}
-          onEndReachedThreshold={5}
+          onEndReachedThreshold={500}
           onEndReached={loadMore}
         />
       </View>

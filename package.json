@@ -20,6 +20,7 @@
     "lottie-react-native": "^5.0.1",
     "react": "17.0.2",
     "react-native": "0.67.3",
+    "react-native-auto-typing-text": "^1.0.4",
     "react-native-easy-content-loader": "^0.3.2",
     "react-native-flash-message": "^0.2.1",
     "react-native-paper": "^4.11.2",
