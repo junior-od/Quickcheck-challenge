@@ -37,7 +37,7 @@ const SignupScreen = ({navigation}: SignupScreenProps) => {
           if (len > 0) {
             setLoading(false);
             showMessage({
-              description: 'user exists',
+              description: 'user name exists',
               message: 'Error',
               icon: 'danger',
               type: 'danger',
@@ -78,7 +78,7 @@ const SignupScreen = ({navigation}: SignupScreenProps) => {
     });
   };
 
-  const proceed = async (
+  const proceed = (
     firstName: string,
     lastName: string,
     userName: string,

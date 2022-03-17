@@ -36,6 +36,10 @@ const SigninForm = ({containerStyle, proceed}: SigninProps) => {
     setPasswordState(text);
   };
 
+  const okay = () => {
+    proceed(userNameState, passwordState);
+  };
+
   useEffect(() => {
     moveStepView(Easing.ease);
   }, []);
@@ -69,7 +73,7 @@ const SigninForm = ({containerStyle, proceed}: SigninProps) => {
         />
 
         <CustomButton
-          onButtonClicked={proceed}
+          onButtonClicked={okay}
           buttonStyle={{
             width: signinButtonWidth,
             backgroundColor: colors.blue,

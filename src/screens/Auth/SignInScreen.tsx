@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, View, FlatList, StyleSheet} from 'react-native';
 import CustomStatusBar from '../../components/CustomStatusBar';
 import {padMarginSizes} from '../../utils/sizes';
@@ -8,20 +8,71 @@ import AppHeader from '../../components/AppHeader';
 import SigninForm from '../../components/SigninForm';
 import {useDispatch} from 'react-redux';
 import {setUserSession} from '../../redux/actions/userActions';
+import {showMessage} from 'react-native-flash-message';
+import AppLoader from '../../components/AppLoader';
+import {database} from '../../database/Database';
 
 type SigninScreenProps = {
   navigation: any;
 };
 
 const SigninScreen = ({navigation}: SigninScreenProps) => {
+  const [isLoading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const backArrowClicked = () => {
     navigation.goBack();
   };
 
-  const proceed = () => {
-    dispatch(setUserSession(true));
+  const checkIfUserCredExists = (userName: string, password: string) => {
+    setLoading(true);
+    database.transaction((txn: any) => {
+      txn.executeSql(
+        'SELECT * FROM users where username =(?) AND password =(?)',
+        [userName, password],
+        (_sqlTxn: any, res: any) => {
+          // console.log('categories retrieved successfully');
+          let len = res.rows.length;
+
+          if (len > 0) {
+            setLoading(false);
+            //login user
+            dispatch(setUserSession(true));
+          } else {
+            //
+            setLoading(false);
+            showMessage({
+              description: 'invalid username or password',
+              message: 'Error',
+              icon: 'danger',
+              type: 'danger',
+            });
+          }
+        },
+        (_error: any) => {
+          setLoading(false);
+          showMessage({
+            description: 'something went wrong',
+            message: 'Error',
+            icon: 'danger',
+            type: 'danger',
+          });
+        },
+      );
+    });
+  };
+
+  const proceed = (userName: string, password: string) => {
+    if (userName.length > 0 && password.length > 0) {
+      checkIfUserCredExists(userName, password);
+    } else {
+      showMessage({
+        description: 'All fields are required',
+        message: 'Error',
+        icon: 'danger',
+        type: 'danger',
+      });
+    }
   };
 
   return (
@@ -40,6 +91,7 @@ const SigninScreen = ({navigation}: SigninScreenProps) => {
             ListEmptyComponent={<SigninForm proceed={proceed} />}
           />
         </View>
+        <AppLoader isVisible={isLoading} />
       </SafeAreaView>
     </DismissKeyoard>
   );
