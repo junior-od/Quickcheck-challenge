@@ -8,6 +8,7 @@ import Logo from '../../components/Logo';
 import GetStarted from '../../components/GetStarted';
 import {navigationConstants} from '../../utils/navigationConstants';
 import {createUserTable} from '../../database/Tables';
+import SplashScreen from 'react-native-splash-screen';
 
 type OnboardingScreenProps = {
   navigation: any;
@@ -23,6 +24,7 @@ const OnboardingScreen = ({navigation}: OnboardingScreenProps) => {
   };
 
   useEffect(() => {
+    SplashScreen.hide();
     createUserTable();
   }, []);
 
