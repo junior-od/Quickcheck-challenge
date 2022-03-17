@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {SafeAreaView, View, FlatList, StyleSheet} from 'react-native';
 import CustomStatusBar from '../../components/CustomStatusBar';
 import {padMarginSizes} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import DismissKeyoard from '../../components/DismissKeyboard';
+import {createUserTable} from '../../database/Tables';
 import AppHeader from '../../components/AppHeader';
 import SigninForm from '../../components/SigninForm';
 import {useDispatch} from 'react-redux';
@@ -23,6 +24,10 @@ const SigninScreen = ({navigation}: SigninScreenProps) => {
   const backArrowClicked = () => {
     navigation.goBack();
   };
+
+  useEffect(() => {
+    createUserTable();
+  }, []);
 
   const checkIfUserCredExists = (userName: string, password: string) => {
     setLoading(true);
