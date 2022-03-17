@@ -84,7 +84,21 @@ const SignupScreen = ({navigation}: SignupScreenProps) => {
     userName: string,
     password: string,
   ) => {
-    checkIfUserExists(firstName, lastName, userName, password);
+    if (
+      firstName.length > 0 &&
+      lastName.length > 0 &&
+      userName.length > 0 &&
+      password.length > 0
+    ) {
+      checkIfUserExists(firstName, lastName, userName, password);
+    } else {
+      showMessage({
+        description: 'All fields are required',
+        message: 'Error',
+        icon: 'danger',
+        type: 'danger',
+      });
+    }
   };
 
   useEffect(() => {
