@@ -1,34 +1,17 @@
-import React, {useMemo, useState, useEffect, useRef} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, {useMemo} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet, Platform} from 'react-native';
 import ContentLoader from 'react-native-easy-content-loader';
-import {fontSizes, padMarginSizes} from '../utils/sizes';
+import { borderSizes, padMarginSizes, fontSizes } from '../utils/sizes';
 import {colors} from '../utils/colors';
-import {getStory} from '../apis/HnApi';
 
 type SingleStoryItemProps = {
   item?: any;
   onItemClicked?: any;
+  isDataListVisible: boolean;
 };
 
-const SingleStoryItem = ({item, onItemClicked}: SingleStoryItemProps) => {
-  const [story, setStory] = useState<any>(null);
-  const subscribeToCall = useRef<boolean>(true);
+const SingleStoryItem = ({item, onItemClicked, isDataListVisible}: SingleStoryItemProps) => {
 
-  useEffect(() => {
-    if (subscribeToCall.current) {
-      getStory(item)
-        .then(res => {
-          if (res && subscribeToCall.current) {
-            setStory(res);
-          }
-        })
-        .catch(_err => {});
-    }
-
-    return () => {
-      subscribeToCall.current = false;
-    };
-  }, []);
   const listComp = useMemo(() => {
     return (
       <TouchableOpacity onPress={onItemClicked}>
@@ -45,14 +28,14 @@ const SingleStoryItem = ({item, onItemClicked}: SingleStoryItemProps) => {
           }}
           pRows={1}
           aSize={50}
-          loading={!story}>
+          loading={isDataListVisible}>
           <View style={styles.innerContainer}>
-            <Text style={styles.textStyle}>{story ? story.title : ''}</Text>
+            <Text style={styles.textStyle}>{item.title}</Text>
           </View>
         </ContentLoader>
       </TouchableOpacity>
     );
-  }, [story]);
+  }, [isDataListVisible]);
 
   return listComp;
 };
@@ -62,19 +45,53 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingStart: padMarginSizes.xl,
-    paddingEnd: padMarginSizes.xl,
+    padding: padMarginSizes.xl,
     marginTop: padMarginSizes.lg,
     marginBottom: padMarginSizes.md,
+    backgroundColor: colors.white,
+    borderRadius: borderSizes.lg,
+    ...Platform.select({
+      android: {
+        elevation: 2,
+      },
+      ios: {
+        shadowColor: colors.black,
+        shadowOffset: {
+          width: 0,
+          height: 5,
+        },
+        shadowOpacity: 0.1,
+      },
+    }),
+
   },
 
   contentLoaderStyle: {
+    paddingLeft: padMarginSizes.xl,
+    paddingRight: padMarginSizes.xl,
+    marginTop: padMarginSizes.md,
+    backgroundColor: colors.white,
+    borderRadius: borderSizes.lg,
     justifyContent: 'center',
     alignItems: 'center',
+    ...Platform.select({
+      android: {
+        elevation: 2,
+      },
+      ios: {
+        shadowColor: colors.black,
+        shadowOffset: {
+          width: 0,
+          height: 5,
+        },
+        shadowOpacity: 0.1,
+      },
+    }),
   },
 
   textStyle: {
     color: colors.black,
+    fontSize: fontSizes.hd,
   },
 });
 

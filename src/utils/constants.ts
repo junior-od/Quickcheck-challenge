@@ -9,3 +9,5 @@ export enum Hn {
 }
 
 export const requestTimeout: number = 45000;
+
+export const mockData = [1,2,3,4,5,6,7,8,9,10];

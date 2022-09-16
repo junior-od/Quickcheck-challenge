@@ -18,6 +18,7 @@ type SigninScreenProps = {
 };
 
 const SigninScreen = ({navigation}: SigninScreenProps) => {
+  const renderItem = () => null;
   const [isLoading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
 
@@ -92,7 +93,8 @@ const SigninScreen = ({navigation}: SigninScreenProps) => {
         <View style={styles.innerContainer}>
           <FlatList
             data={[]}
-            renderItem={() => null}
+            renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
             ListEmptyComponent={<SigninForm proceed={proceed} />}
           />
         </View>

@@ -18,6 +18,7 @@ type SignupScreenProps = {
 
 const SignupScreen = ({navigation}: SignupScreenProps) => {
   const [isLoading, setLoading] = useState<boolean>(false);
+  const renderItem = () => null;
 
   const checkIfUserExists = (
     firstName: string,
@@ -121,7 +122,8 @@ const SignupScreen = ({navigation}: SignupScreenProps) => {
         <View style={styles.innerContainer}>
           <FlatList
             data={[]}
-            renderItem={() => null}
+            renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
             ListEmptyComponent={<SignupForm proceed={proceed} />}
           />
         </View>
