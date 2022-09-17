@@ -14,16 +14,16 @@ const AboutScreen = ({navigation}: AboutScreenProps) => {
   return (
     <View style={styles.mainContainer}>
       <CustomStatusBar />
-      <Image style={{position: 'absolute', height: '30%'}} source={require('../../assets/img/d.jpg')}  />
+      <Image style={{position: 'absolute', height: 120}} source={require('../../assets/img/d.jpg')}  />
 
       <View style={styles.innerContainer}>
-      <Image
-          source={require('../../assets/img/ope.png')}
-          style={styles.imgStyle}
-        />
+        <Image
+            source={require('../../assets/img/ope.png')}
+            style={styles.imgStyle}
+          />
 
         <AutoTypingText
-          text={'My name is Opeyemi Oduberu. I am a react native developer.'}
+          text={'My name is Opeyemi Oduberu and I am a react native developer.'}
           charMovingTime={80}
           delay={0}
           style={{
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
 
   imgStyle: {
-    marginTop: '48%',
+    marginTop: padMarginSizes.xxxl,
     alignSelf: 'center',
     width: 120,
     height: 120,

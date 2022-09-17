@@ -162,6 +162,10 @@ const NewsScreen = ({navigation}: NewsScreenProps) => {
         }
         //
       });
+
+      return () => {
+        subscribeToScreen.current = false;
+      };
   }, []);
 
   const clicked = async (item: any) => { 
@@ -195,11 +199,13 @@ const NewsScreen = ({navigation}: NewsScreenProps) => {
           refreshing={pullDownRefresh}
           initialScrollIndex={0}
           initialNumToRender={20}
-          updateCellsBatchingPeriod={20}
+          updateCellsBatchingPeriod={200}
           showsVerticalScrollIndicator={false}
           onEndReachedThreshold={0.8}
           maxToRenderPerBatch={20}
+          windowSize={25}
           onEndReached={loadMore}
+          removeClippedSubviews={true}
           ListFooterComponent={
             !isDataListVisible && isExtraDataLoading ? (
               <View
